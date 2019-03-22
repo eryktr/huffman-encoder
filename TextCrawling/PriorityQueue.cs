@@ -11,7 +11,8 @@ namespace huffman_encoder.TextCrawling
         private readonly List<T> _elements;
         private readonly Comparison<T> _comparison;
 
-        private void ReorderFrequencies()
+        public int Count => _elements.Count;
+        private void Reorder()
         {
             _elements.Sort((e1, e2) => _comparison(e1, e2));
         }
@@ -20,23 +21,21 @@ namespace huffman_encoder.TextCrawling
         {
             _elements = elements;
             _comparison = comparison ?? ((x, y) => x.CompareTo(y));
-            ReorderFrequencies();
+            Reorder();
         }
 
         public T Pop()
         {
-            return _elements.First();
+            var elem = _elements.First();
+            _elements.Remove(elem);
+            Reorder();
+            return elem;
         }
 
         public void Push(T elem)
         {
             _elements.Add(elem);
-            ReorderFrequencies();
-        }
-
-        public bool NotEmpty()
-        {
-            return _elements.Any();
+            Reorder();
         }
        
         public IEnumerator<T> GetEnumerator()

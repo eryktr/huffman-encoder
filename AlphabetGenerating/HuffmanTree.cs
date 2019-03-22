@@ -11,11 +11,8 @@ namespace huffman_encoder.TextCrawling
         public HuffmanTree Left { get; set; }
         public HuffmanTree Right { get; set; }
    
-        public int CompareTo(HuffmanTree other)
-        {
-            return Frequency.CompareTo(other.Frequency);
-        }
-
+        public int CompareTo(HuffmanTree other) => Frequency.CompareTo(other.Frequency);
+        
         public HuffmanTree(int frequency, char character, HuffmanTree left = null, HuffmanTree right = null)
         {
             Frequency = frequency;
