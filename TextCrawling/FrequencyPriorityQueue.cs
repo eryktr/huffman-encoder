@@ -6,61 +6,47 @@ using System.Reflection.PortableExecutable;
 
 namespace huffman_encoder.TextCrawling
 {
-    internal class FrequencyPriorityQueue : IEnumerable<Tuple<char, int>>
+    internal class PriorityQueue<T>: IEnumerable<T> where T: IComparable<T>
     {
-        private IList<Tuple<char, int>> _frequencies;
+        private readonly List<T> _elements;
+        private readonly Comparison<T> _comparison;
 
         private void ReorderFrequencies()
         {
-            _frequencies = _frequencies.OrderBy(elem => elem.Item2).ToList();
+            _elements.Sort((e1, e2) => _comparison(e1, e2));
         }
         
-        public FrequencyPriorityQueue(IDictionary<char, int> frequencies)
+        public PriorityQueue(List<T> elements, Comparison<T> comparison = null) 
         {
-            _frequencies = new List<Tuple<char, int>>();
-            foreach (var (key, value) in frequencies)
-            {
-                _frequencies.Add(new Tuple<char, int>(key, value));
-            }
+            _elements = elements;
+            _comparison = comparison ?? ((x, y) => x.CompareTo(y));
             ReorderFrequencies();
         }
 
-        public int GetFrequency(char character)
+        public T Pop()
         {
-            foreach (var (item1, item2) in _frequencies)
-            {
-                if (item1 == character)
-                {
-                    return item2;
-                }
-            }
-            throw new ArgumentException("Character is not in the map!");
+            return _elements.First();
         }
 
-        public Tuple<char, int> Pop()
+        public void Push(T elem)
         {
-            return _frequencies.First();
-        }
-
-        public void Push(Tuple<char, int> pair)
-        {
-            _frequencies.Add(pair);
+            _elements.Add(elem);
             ReorderFrequencies();
         }
-        
-        public IList<Tuple<char, int>> ToList()
-        {
-            return _frequencies;
-        }
 
-        public IEnumerator<Tuple<char, int>> GetEnumerator()
+        public bool NotEmpty()
         {
-            return _frequencies.GetEnumerator();
+            return _elements.Any();
+        }
+       
+        public IEnumerator<T> GetEnumerator()
+        {
+            return _elements.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _frequencies.GetEnumerator();
+            return _elements.GetEnumerator();
         }
     }
 }
