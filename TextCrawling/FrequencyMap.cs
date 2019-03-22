@@ -1,25 +1,53 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.PortableExecutable;
 
 namespace huffman_encoder.TextCrawling
 {
     internal class FrequencyMap
     {
-        private readonly Dictionary<char, int> _frequencies;
+        private IList<Tuple<char, int>> _frequencies;
 
-        public FrequencyMap(Dictionary<char, int> frequencies)
+        private void ReorderFrequencies()
         {
-            _frequencies = frequencies;
+            _frequencies = _frequencies.OrderBy(elem => elem.Item2).ToList();
+        }
+        
+        public FrequencyMap(IDictionary<char, int> frequencies)
+        {
+            _frequencies = new List<Tuple<char, int>>();
+            foreach (var (key, value) in frequencies)
+            {
+                _frequencies.Add(new Tuple<char, int>(key, value));
+            }
+            ReorderFrequencies();
         }
 
         public int GetFrequency(char character)
         {
-            if (!_frequencies.ContainsKey(character)) throw new ArgumentException($"{character} is not in the map!");
-
-            return _frequencies[character];
+            foreach (var pair in _frequencies)
+            {
+                if (pair.Item1 == character)
+                {
+                    return pair.Item2;
+                }
+            }
+            throw new ArgumentException("Character is not in the map!");
         }
 
-        public Dictionary<char, int> ToDict()
+        public Tuple<char, int> Pop()
+        {
+            return _frequencies.First();
+        }
+
+        public void Push(Tuple<char, int> pair)
+        {
+            _frequencies.Add(pair);
+            ReorderFrequencies();
+        }
+        
+        public IList<Tuple<char, int>> ToList()
         {
             return _frequencies;
         }
