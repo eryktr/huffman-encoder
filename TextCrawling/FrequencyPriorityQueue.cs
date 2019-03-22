@@ -1,11 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 
 namespace huffman_encoder.TextCrawling
 {
-    internal class FrequencyPriorityQueue
+    internal class FrequencyPriorityQueue : IEnumerable<Tuple<char, int>>
     {
         private IList<Tuple<char, int>> _frequencies;
 
@@ -50,6 +51,16 @@ namespace huffman_encoder.TextCrawling
         public IList<Tuple<char, int>> ToList()
         {
             return _frequencies;
+        }
+
+        public IEnumerator<Tuple<char, int>> GetEnumerator()
+        {
+            return _frequencies.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _frequencies.GetEnumerator();
         }
     }
 }
