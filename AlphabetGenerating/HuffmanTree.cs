@@ -15,5 +15,13 @@ namespace huffman_encoder.TextCrawling
         {
             return Frequency.CompareTo(other.Frequency);
         }
+
+        public HuffmanTree(int frequency, char character, HuffmanTree left = null, HuffmanTree right = null)
+        {
+            Frequency = frequency;
+            Character = character;
+            Left = left;
+            Right = right;
+        }
     }
 }
