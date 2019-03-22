@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection.PortableExecutable;
+using huffman_encoder.TextCrawling;
 
 namespace huffman_encoder
 {
@@ -6,7 +8,8 @@ namespace huffman_encoder
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            TextCrawler cr = TextCrawler.Instance;
+            var fr = cr.CrawlFile("LICENSE");
         }
     }
 }

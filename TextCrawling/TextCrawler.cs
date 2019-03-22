@@ -1,13 +1,19 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection.PortableExecutable;
 
 namespace huffman_encoder.TextCrawling
 {
     class TextCrawler
     {
-        private TextCrawler _instance;
-        public TextCrawler Instance => _instance ?? (_instance = new TextCrawler());
+        private static TextCrawler _instance;
+        public static TextCrawler Instance => _instance ?? (_instance = new TextCrawler());
+
+        private TextCrawler()
+        {
+        }
 
         public FrequencyMap CrawlFile(string filePath)
         {
@@ -24,8 +30,10 @@ namespace huffman_encoder.TextCrawling
 
         private FrequencyMap ComputeFrequencyMap(string text)
         {
+            var letters = Enumerable.Range(97, 26).Select(code => (char) code);
+
             var dic = new Dictionary<char, int>();
-            foreach (var character in text)
+            foreach (var character in text.ToLower())
             {
                 if (!dic.ContainsKey(character))
                 {
