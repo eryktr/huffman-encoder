@@ -5,7 +5,7 @@ using System.Reflection.PortableExecutable;
 
 namespace huffman_encoder.TextCrawling
 {
-    internal class FrequencyMap
+    internal class FrequencyPriorityQueue
     {
         private IList<Tuple<char, int>> _frequencies;
 
@@ -14,7 +14,7 @@ namespace huffman_encoder.TextCrawling
             _frequencies = _frequencies.OrderBy(elem => elem.Item2).ToList();
         }
         
-        public FrequencyMap(IDictionary<char, int> frequencies)
+        public FrequencyPriorityQueue(IDictionary<char, int> frequencies)
         {
             _frequencies = new List<Tuple<char, int>>();
             foreach (var (key, value) in frequencies)
@@ -26,11 +26,11 @@ namespace huffman_encoder.TextCrawling
 
         public int GetFrequency(char character)
         {
-            foreach (var pair in _frequencies)
+            foreach (var (item1, item2) in _frequencies)
             {
-                if (pair.Item1 == character)
+                if (item1 == character)
                 {
-                    return pair.Item2;
+                    return item2;
                 }
             }
             throw new ArgumentException("Character is not in the map!");

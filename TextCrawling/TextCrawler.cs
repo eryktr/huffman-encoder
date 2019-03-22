@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace huffman_encoder.TextCrawling
 {
@@ -14,7 +15,7 @@ namespace huffman_encoder.TextCrawling
 
         public static TextCrawler Instance => _instance ?? (_instance = new TextCrawler());
 
-        public FrequencyMap CrawlFile(string filePath)
+        public FrequencyPriorityQueue CrawlFile(string filePath)
         {
             if (!File.Exists(filePath)) throw new FileLoadException("File does not exist!");
 
@@ -24,19 +25,20 @@ namespace huffman_encoder.TextCrawling
             return freqMap;
         }
 
-        private FrequencyMap ComputeFrequencyMap(string text)
+        private FrequencyPriorityQueue ComputeFrequencyMap(string text)
         {
             var letters = Enumerable.Range(97, 26).Select(code => (char) code);
 
             var dic = new Dictionary<char, int>();
             foreach (var character in text.ToLower())
             {
+                if (!letters.Contains(character)) continue;
                 if (!dic.ContainsKey(character)) dic[character] = 0;
 
                 dic[character]++;
             }
 
-            var map = new FrequencyMap(dic);
+            var map = new FrequencyPriorityQueue(dic);
             return map;
         }
     }

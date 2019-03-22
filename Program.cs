@@ -1,4 +1,6 @@
-﻿using huffman_encoder.TextCrawling;
+﻿using System;
+using System.Collections.Generic;
+using huffman_encoder.TextCrawling;
 
 namespace huffman_encoder
 {
