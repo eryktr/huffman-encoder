@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Numerics;
 
 namespace huffman_encoder.TextCrawling
 {
-    class FrequencyMap
+    internal class FrequencyMap
     {
         private readonly Dictionary<char, int> _frequencies;
 
@@ -18,11 +14,7 @@ namespace huffman_encoder.TextCrawling
 
         public int GetFrequency(char character)
         {
-            
-            if (!_frequencies.ContainsKey(character))
-            {
-                throw new ArgumentException($"{character} is not in the map!");
-            }
+            if (!_frequencies.ContainsKey(character)) throw new ArgumentException($"{character} is not in the map!");
 
             return _frequencies[character];
         }
