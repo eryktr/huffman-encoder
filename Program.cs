@@ -13,7 +13,7 @@ namespace huffman_encoder
             var fr = cr.CrawlFile("LICENSE");
             var a = new AlphabetGenerator().GenerateAlphabet(fr);
             FileEncoder.EncodeFile("LICENSE", a, "output");
-            FileDecoder.DecodeFile("output", "decoded", a);
+            FileDecoder.DecodeFile("output", "output.alphabet", "decoded");
             
         }
     }

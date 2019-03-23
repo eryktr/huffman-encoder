@@ -9,7 +9,8 @@ namespace huffman_encoder.Encoding
     {
         public static void DecodeFile(string inputFile, string alphabetFile, string outputFile)
         {
-            var alphabet = ReadAlphabet
+            var alphabet = new Alphabet(alphabetFile);
+            DecodeFile(inputFile, alphabet, outputFile);
         }
         private static void DecodeFile(string inputFile,  Alphabet alphabet, string outputFile)
         {
