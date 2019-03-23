@@ -7,7 +7,11 @@ namespace huffman_encoder.Encoding
 {
     internal static class FileDecoder
     {
-        public static void DecodeFile(string inputFile, string outputFile, Alphabet alphabet)
+        public static void DecodeFile(string inputFile, string alphabetFile, string outputFile)
+        {
+            var alphabet = ReadAlphabet
+        }
+        private static void DecodeFile(string inputFile,  Alphabet alphabet, string outputFile)
         {
             var codedText = File.ReadAllText(inputFile);
             var decodedText = new StringBuilder("");

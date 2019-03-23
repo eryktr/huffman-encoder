@@ -1,8 +1,5 @@
-using System;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Net.Mime;
 using System.Text;
 using huffman_encoder.TextCrawling;
 
@@ -44,11 +41,11 @@ namespace huffman_encoder.Encoding
         
         private static void WriteAlphabetFile(string alphabetFilename, Alphabet alphabet)
         {
-            foreach (var pair in alphabet.toDict())
+            foreach (var (key, value) in alphabet.toDict())
             {
                 using (var file = new StreamWriter(alphabetFilename, true))
                 {
-                    file.WriteLine($"{pair.Key}:{pair.Value}");
+                    file.WriteLine($"{key}:{value}");
                 }
             }
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace huffman_encoder.TextCrawling
 {
@@ -10,6 +11,21 @@ namespace huffman_encoder.TextCrawling
         public Alphabet(Dictionary<char, string> alphabet)
         {
             _alphabet = alphabet;
+        }
+
+        public Alphabet(string fileName)
+        {
+            var dict = new Dictionary<char, string>();
+            var lines = File.ReadAllLines(fileName);
+            foreach (var line in lines)
+            {
+                var pair = line.Split(":");
+                var key = pair[0][0];
+                var val = pair[1];
+                dict.Add(key, val);
+            }
+
+            _alphabet = dict;
         }
 
         public string GetCodeFor(char letter)
@@ -28,5 +44,6 @@ namespace huffman_encoder.TextCrawling
         {
             return _alphabet;
         }
+        
     }
 }
