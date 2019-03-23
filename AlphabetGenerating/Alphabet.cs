@@ -23,5 +23,10 @@ namespace huffman_encoder.TextCrawling
         {
             return _alphabet.ContainsKey(letter);
         }
+
+        public Dictionary<char, string> toDict()
+        {
+            return _alphabet;
+        }
     }
 }
