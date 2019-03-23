@@ -18,5 +18,10 @@ namespace huffman_encoder.TextCrawling
 
             return _alphabet[letter];
         }
+
+        public bool Contains(char letter)
+        {
+            return _alphabet.ContainsKey(letter);
+        }
     }
 }

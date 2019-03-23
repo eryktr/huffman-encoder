@@ -6,8 +6,4 @@
         <RootNamespace>huffman_encoder</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Encoding" />
-    </ItemGroup>
-
 </Project>

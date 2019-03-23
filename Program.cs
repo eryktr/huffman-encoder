@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using huffman_encoder.Encoding;
 using huffman_encoder.TextCrawling;
 
 namespace huffman_encoder
@@ -11,7 +12,7 @@ namespace huffman_encoder
             var cr = TextCrawler.Instance;
             var fr = cr.CrawlFile("LICENSE");
             var a = new AlphabetGenerator().GenerateAlphabet(fr);
-            
+            FileEncoder.EncodeFile("LICENSE", a, "output");
             
         }
     }
