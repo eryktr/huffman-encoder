@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using huffman_encoder.CLI;
+using huffman_encoder.CLI.Parsing;
 using huffman_encoder.Encoding;
 using huffman_encoder.TextCrawling;
 
@@ -9,12 +11,31 @@ namespace huffman_encoder
     {
         private static void Main(string[] args)
         {
-            var cr = TextCrawler.Instance;
-            var fr = cr.CrawlFile("LICENSE");
-            var a = new AlphabetGenerator().GenerateAlphabet(fr);
-            FileEncoder.EncodeFile("LICENSE", a, "output");
-            FileDecoder.DecodeFile("output", "output.alphabet", "decoded");
-            
+            var settings = Parser.ParseArguments(args);
+            if (settings.Mode == RunMode.ENCODE)
+            {
+                RunEncode(settings);
+            }
+            else
+            {
+                RunDecode(settings);
+            }
+
+        }
+
+        private static void RunEncode(Settings settings)
+        {
+            var input = settings.FileToEncode;
+            var output = settings.OutputFile;
+            FileEncoder.EncodeFile(input, output);
+        }
+
+        private static void RunDecode(Settings settings)
+        {
+            var input = settings.FileToDecode;
+            var alphabet = settings.AlphabetFile;
+            var output = settings.OutputFile;
+            FileDecoder.DecodeFile(input, alphabet, output);
         }
     }
 }

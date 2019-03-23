@@ -62,7 +62,7 @@ namespace huffman_encoder.CLI.Parsing
 
         private static bool ContainsBoth(string[] args)
         {
-            return args.Contains(ENCODE_ARG) && args.Contains(ENCODE_ARG);
+            return args.Contains(ENCODE_ARG) && args.Contains(DECODE_ARG);
         }
 
         private static bool ContainsNone(string[] args)

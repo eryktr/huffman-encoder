@@ -7,8 +7,11 @@ namespace huffman_encoder.Encoding
 {
     internal static class FileEncoder
     {
-        public static void EncodeFile(string fileName, Alphabet alphabet, string outputFile)
+        private static readonly AlphabetGenerator _alphabetGenerator = new AlphabetGenerator();
+        public static void EncodeFile(string fileName,  string outputFile)
         {
+            var frequencies = TextCrawler.Instance.CrawlFile(fileName);
+            var alphabet = _alphabetGenerator.GenerateAlphabet(frequencies);
             var alphabetFilename = outputFile + ".alphabet";
             var text = File.ReadAllText(fileName);
             text = cleanText(text, alphabet);
