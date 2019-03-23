@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using huffman_encoder.CLI;
+﻿using huffman_encoder.CLI;
 using huffman_encoder.CLI.Parsing;
 using huffman_encoder.Encoding;
-using huffman_encoder.TextCrawling;
 
 namespace huffman_encoder
 {
